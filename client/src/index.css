@@ -1,0 +1,391 @@
+@import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  padding-top: 80px;
+
+}
+
+.pageBody {
+  padding: 0 15px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+* {
+  font-family: 'Readex Pro', sans-serif;
+  box-sizing: border-box;
+}
+button {
+  cursor: pointer;
+}
+
+.home {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-image: url("https://tinder.com/static/build/07eef8b101ca939c978a599f508aa955.webp");
+}
+.home::before {
+  bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    content: " ";
+    /* opacity: 0.4; */
+    background: linear-gradient(
+      to bottom, 
+      rgba(0,0,0,0.9) 0%, 
+      rgba(0,0,0,0) 100%
+    );
+    z-index: 0;
+}
+
+.home .title {
+  font-weight: 800;
+  font-size: 70px;
+  color: #fff;
+  position: relative;
+}
+
+.secondary-button {
+  /* height: 40px; */
+  padding: 6px 20px;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 2px 6px 0 #656e7b1f;
+  border: none;
+  background:#ccc;
+  /* background: linear-gradient(45deg,#fd267a,#ff6036); */
+  position: relative;
+  transition: background .4 ease-out;
+}
+
+.primary-button {
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 2px 6px 0 #656e7b1f;
+  border: none;
+  border-radius: 100px;
+  width: 260px;
+  min-height: 55px;
+  padding: 0 8px;
+  background: linear-gradient(45deg,#fd267a,#ff6036);
+  position: relative;
+  transition: background .4 ease-out;
+}
+.primary-button:hover {
+  background: linear-gradient(-45deg,#fd267a,#ff6036);
+}
+/* NAV */
+.logo {
+  
+  background: #000;
+}
+.nav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background: #000; */
+  padding: 15px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+.nav-button {
+  padding: 6px 40px;
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  height: 40px;
+}
+
+
+.iconLogo {
+  width: 40px;
+}
+
+
+.logo svg {
+  color: #fff;
+  width: 200px;
+  height: 40px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+
+
+/* Modal ---------------------*/
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modalClose {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modalCloseIcon {
+  border-radius: 100%;
+  border: 1px solid #e4e4e4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.modal-block {
+  max-width: 420px;
+  width: 100%;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modalBody {
+  padding: 0 20px 20px;
+}
+.modalBody p {
+  font-size: 13px;
+  margin-bottom: 25px;
+  color: rgb(124, 124, 124);
+}
+
+.modalBody form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.authForm input {
+  margin-bottom: 28px;
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+}
+
+
+
+
+/* profileForm/ */
+
+.dob, .multiply-input-container {
+  display: flex;
+}
+
+.account h2 {
+  text-align: center;
+}
+
+.profileForm {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.profileForm input {
+  /* display: block; */
+  padding: 15px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: solid 1px #ccc;
+  border-radius: 10px;
+}
+
+.f-full {
+  width: 100%;
+}
+
+.profileForm section {
+  /* width: 50%; */
+  padding: 15px;
+  
+}
+.profileForm label {
+  margin: 10px 0;
+  display: block;
+}
+
+.multiply-input-container {
+  display: flex;
+ 
+}
+.multiply-input-container input {
+  margin-right: 10px;
+}
+.multiply-input-container input[type="radio"] {
+  display: none;
+}
+form input[type="radio"]:checked + label {
+  /* border: solid 1px #6b6b6b;
+  background: #6b6b6b; */
+  background: linear-gradient(45deg,#fd267a,#ff6036);
+  color: #fff;
+}
+.profileForm button[type="submit"] {
+  margin-top: 20px;
+
+}
+.profileForm input[type="number"] {
+  width: 15%;
+}
+.profileForm input[type="text"] {
+  width: 100%;
+}
+
+.multiply-input {
+  /* margin: 15px 15px; */
+  /* margin-left: 0; */
+  margin-right: 15px;
+}
+.multiply-input-container label {
+  border: solid 1px #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  
+}
+
+.multiply-input-container input::-webkit-outer-spin-button,
+.multiply-input-container input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.photoContainer {
+  max-width: 300px;
+}
+
+.left {
+  width: 70%;
+}
+.right {
+  width: 30%;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard .swiperContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* swiperContainer */
+/* .swiperContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px;
+} */
+
+
+/* chatHeader */
+
+.chatContainer .option {
+  font-size: 20px;
+  margin: 2px;
+  padding: 10px;
+  border: none;
+  background-color: #fff;
+  border-bottom: 4px solid rgb(243, 33, 33);
+}
+.chatContainer .option:disabled {
+  border-bottom: 4px solid #ccc;
+}
+
+.chatHeader {
+  background: linear-gradient(45deg,#fd267a,#ff6036);
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.imgContainer {
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.imgContainer img {
+ 
+}
+
+.chatContainer {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 30%;
+  z-index: 1;
+}
+
+.chatInput {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.chatInput button {
+  margin-top: 15px;
+}
+
+.chat {
+  padding: 20px;
+  height: 55vh;
+  overflow-y: auto;
+}
+
+
+.matchesDisplay {
+}
