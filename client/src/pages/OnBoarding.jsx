@@ -1,9 +1,15 @@
 import { useState } from "react"
 import { Nav } from "../components/Nav"
+import { useCookies } from 'react-cookie'
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export const OnBoarding = () => {
+
+  const [cookies, setCookie, removeCookie] = useCookies(['user'])
+
   const [formData, setFormData] = useState({
-    user_id: '',
+    user_id: cookies.UserId,
     first_name: '',
     dob_day: '',
     dob_month: '',
@@ -11,11 +17,13 @@ export const OnBoarding = () => {
     show_gender: false,
     gender_identity: 'man',
     gender_interest: 'woman',
-    email: '',
+    // email: '',
     url: '',
     about: '',
     matches: [],
   })
+
+  
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -28,11 +36,25 @@ export const OnBoarding = () => {
 
   }
 
-  const handleSubmit = () => {
+  let navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    try {
+
+      const response = await axios.put(`http://localhost:8000/user`, { formData })
+
+      const success = response.status === 200;
+
+      if (success) navigate('/dashboard')
+
+    } catch (error) {
+        console.log(error)
+    }
 
   }
 
-  console.log(formData)
   return (
     <div className="page account">
         <Nav 
