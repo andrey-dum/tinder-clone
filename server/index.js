@@ -1,8 +1,8 @@
 const PORT = 8000
 
 const express = require('express')
-const  cors = require('cors')
 const { MongoClient } = require('mongodb')
+const  cors = require('cors')
 const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -35,7 +35,7 @@ app.post('/signup', async (req, res) => {
         const db = client.db('tinder')
         const users = await db.collection('users')
 
-        const existingUser = users.findOne({email})
+        const existingUser = await users.findOne({email})
 
         if(existingUser) {
             return res.status(409).send('User already exists. Please login.')
@@ -51,11 +51,11 @@ app.post('/signup', async (req, res) => {
 
         const isertedUser = await users.insertOne(data)
 
-        const token = jwt.sighn(isertedUser, sanitizedEmail, {
+        const token = jwt.sign(isertedUser, sanitizedEmail, {
             expiresIn: 60 * 24
         })
 
-        res.status(201).json({
+         res.status(201).json({
             token,
             userId: generatedUserId,
             email: sanitizedEmail

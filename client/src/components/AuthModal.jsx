@@ -35,7 +35,7 @@ export const AuthModal = ({
                 password: userData?.password
             })
 
-            const success = response.status == 201;
+            const success = response.status === 201;
 
             if (success) navigate('/onboarding')
 
