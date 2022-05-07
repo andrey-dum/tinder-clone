@@ -139,25 +139,57 @@ app.put('/user', async (req, res) => {
    }
 })
 
+// app.get('/users', async (req, res) => {
+//    const client = new MongoClient(uri)
+
+//    try {
+//        await client.connect()
+//        const db = client.db('tinder')
+
+//        const users = db.collection('users')
+
+//        const returnedUsers = await users.find().toArray()
+
+//        res.send(returnedUsers)
+
+//    } catch (error) {
+//        console.log(error)
+//    } finally {
+//        await client.close()
+//    }
+// })
+
+
 app.get('/users', async (req, res) => {
-   const client = new MongoClient(uri)
+    const client = new MongoClient(uri)
+    const userIds = JSON.parse(req.query.userIds)
+ 
+    try {
+        await client.connect()
+        const db = client.db('tinder')
+        const users = db.collection('users')
 
-   try {
-       await client.connect()
-       const db = client.db('tinder')
-
-       const users = db.collection('users')
-
-       const returnedUsers = await users.find().toArray()
-
-       res.send(returnedUsers)
-
-   } catch (error) {
-       console.log(error)
-   } finally {
-       await client.close()
-   }
-})
+        const pipeline =
+            [
+                {
+                    '$match': {
+                        'user_id': {
+                            '$in': userIds
+                        }
+                    }
+                }
+            ]
+ 
+        const foundUsers = await users.aggregate(pipeline).toArray()
+ 
+        res.send(foundUsers)
+ 
+    } catch (error) {
+        console.log(error)
+    } finally {
+        await client.close()
+    }
+ })
 
 app.get('/gendered-users', async (req, res) => {
    const client = new MongoClient(uri)
@@ -202,5 +234,85 @@ app.get('/user', async (req, res) => {
        await client.close()
    }
 })
+
+
+app.get('/messages', async (req, res) => {
+    const client = new MongoClient(uri)
+    const {userId, correspondingUserId} = req.query
+ 
+    try {
+        await client.connect()
+        const db = client.db('tinder')
+        const messages = db.collection('messages')
+ 
+        const query = { 
+            from_userId: userId,
+            to_userId: correspondingUserId
+        }
+ 
+        const foundMessages = await messages.find(query).toArray()
+ 
+        res.send(foundMessages)
+ 
+    } catch (error) {
+        console.log(error)
+    } finally {
+        await client.close()
+    }
+ })
+ 
+
+app.post('/message', async (req, res) => {
+    const client = new MongoClient(uri)
+    const message = req.body.message
+ 
+    try {
+        await client.connect()
+        const db = client.db('tinder')
+        const messages = db.collection('messages')
+ 
+        const insertedMessage = await messages.insertOne(message)
+ 
+        res.send(insertedMessage)
+ 
+    } catch (error) {
+        console.log(error)
+    } finally {
+        await client.close()
+    }
+ })
+ 
+
+
+
+app.put('/addmatch', async (req, res) => {
+
+    const client = new MongoClient(uri);
+    const {userId, matchedUserId} = req.body;
+
+    try {
+        await client.connect()
+        const db = client.db('tinder')
+        const users = await db.collection('users')
+
+
+        const query = { user_id: userId }
+
+        const updateDocument = {
+            $push: { matches: { user_id: matchedUserId }}
+        }
+
+        const updated = await users.updateOne(query, updateDocument)
+        res.send(updated)
+      
+   } catch (error) {
+       console.log(error)
+   } finally {
+       await client.close()
+   }
+})
+
+
+
 
 app.listen(PORT, () => console.log('Server running on PORT ' + PORT))
