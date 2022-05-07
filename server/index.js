@@ -131,11 +131,6 @@ app.put('/user', async (req, res) => {
 
         const insertedUser = await users.updateOne(query, updateDocument)
         res.send(insertedUser)
-
-        
-        // res.status(400).json({
-        //     message: 'Invalid cred'
-        // })
       
    } catch (error) {
        console.log(error)
@@ -156,6 +151,50 @@ app.get('/users', async (req, res) => {
        const returnedUsers = await users.find().toArray()
 
        res.send(returnedUsers)
+
+   } catch (error) {
+       console.log(error)
+   } finally {
+       await client.close()
+   }
+})
+
+app.get('/gendered-users', async (req, res) => {
+   const client = new MongoClient(uri)
+   const gender = req.query.gender
+
+   try {
+       await client.connect()
+       const db = client.db('tinder')
+       const users = db.collection('users')
+       const query = { gender_identity: { $eq: gender} }
+    //    const query = { gender_identity: gender }
+
+       const returnedUsers = await users.find(query).toArray()
+
+       res.send(returnedUsers)
+
+   } catch (error) {
+       console.log(error)
+   } finally {
+       await client.close()
+   }
+})
+
+app.get('/user', async (req, res) => {
+   const client = new MongoClient(uri)
+   const userId = req.query.userId
+
+   try {
+       await client.connect()
+       const db = client.db('tinder')
+       const users = db.collection('users')
+
+       const query = { user_id: userId}
+
+       const user = await users.findOne(query)
+
+       res.send(user)
 
    } catch (error) {
        console.log(error)

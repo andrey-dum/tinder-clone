@@ -2,10 +2,10 @@ import { ChatsDisplay } from "../ChatsDisplay/ChatsDisplay"
 import { MatchesDisplay } from "../MatchesDisplay/MatchesDisplay"
 import { ChatHeader } from "./ChatHeader"
 
-export const ChatContainer = () => {
+export const ChatContainer = ({user}) => {
     return (
       <div className="chatContainer">
-          <ChatHeader />
+          <ChatHeader user={user} />
 
           <div>
             <button
